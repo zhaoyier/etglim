@@ -62,7 +62,7 @@ const Root = () => (
                       <Route
                         exact
                         path="/project/list/variety"
-                        component={getComponentAsync(import(/* webpackChunkName: "SearchVarietyDaily" */ 'page/SearchVarietyDaily'))}
+                        component={getComponentAsync(import(/* webpackChunkName: "SearchDaily" */ 'page/SearchDaily'))}
                       />
 
                       <Route

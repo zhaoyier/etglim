@@ -14,7 +14,7 @@ import Account from 'page/Account';
 import BasicForm from 'page/BasicForm';
 import StepForm from 'page/StepForm';
 import SearchList from 'page/SearchList';
-import SearchVarietyDaily from 'page/SearchVarietyDaily';
+import SearchDaily from 'page/SearchDaily';
 import DataReport from 'page/DataReport';
 import Success from 'page/Result/Success';
 import Error from 'page/Result/Error';
@@ -64,7 +64,7 @@ const Root = () => (
                 <Route
                   exact
                   path="/project/list/variety"
-                  component={SearchVarietyDaily}
+                  component={SearchDaily}
                 />
 
                 <Route

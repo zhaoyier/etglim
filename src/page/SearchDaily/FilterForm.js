@@ -1,6 +1,6 @@
 import React from 'react';
 // import moment from 'moment';
-import { Form, Icon, Input, Button, DatePicker, Cascader } from 'antd';
+import { Form, Button, DatePicker, Cascader } from 'antd';
 
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
@@ -18,8 +18,8 @@ class FilterForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       console.log('====>>>param: ', !err, values);
       if (!err) {
-        const start = values.date[0].format(monthFormat);
-        const end = values.date[1].format(monthFormat);
+        const start = values.date ? values.date[0].format(monthFormat) : 0;
+        const end = values.date ? values.date[1].format(monthFormat) : 0;
         const contract = values.contract.join('');
 
         console.log('Received values of form: ', contract, start, end);
@@ -50,7 +50,7 @@ class FilterForm extends React.Component {
         <FormItem>
           {getFieldDecorator('date', {
             rules: [
-              { required: true, message: 'Please select date!' }
+              { required: false, message: 'Please select date!' }
             ]
           })(
             <RangePicker />
