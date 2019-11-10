@@ -24,7 +24,7 @@ module.exports = env => {
 
   if (API === 'dev') {
     devServer.proxy = {
-      '/api': 'http://localhost:8081' // 预发地址
+      '/api': 'http://pre.xxx.com' // 预发地址
     };
   } /* else {
     devServer.proxy = {

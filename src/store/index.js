@@ -1,7 +1,6 @@
 import BasicFormStore from './BasicFormStore';
 import StepFormStore from './StepFormStore';
 import SearchListStore from './SearchListStore';
-import SearchDailyStore from './SearchDailyStore';
 import LoginStore from './LoginStore';
 import HomeStore from './HomeStore';
 import ReportStore from './ReportStore';
@@ -12,7 +11,5 @@ export default {
   searchListStore: new SearchListStore(),
   loginStore: new LoginStore(),
   homeStore: new HomeStore(),
-  reportStore: new ReportStore(),
-  getDailyStore: new SearchDailyStore()
-
+  reportStore: new ReportStore()
 };

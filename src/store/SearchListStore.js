@@ -10,8 +10,6 @@ export default class SearchListStore {
   reset = (init) => {
     const state = {
       data: [],
-      pageSize: Number,
-      pageNum: Number,
       loading: false // 是否显示加载状态
     };
 
@@ -29,7 +27,7 @@ export default class SearchListStore {
   @action
   onWillMount = async (location, match, history) => {
     this.reset();
-    this.pageSize = 30
+
     this.setRoute(location, match, history);
 
     this.loading = true;
@@ -52,11 +50,6 @@ export default class SearchListStore {
   search = async (values) => {
     // console.log(values);
     await this.getPlans(values.name);
-  }
-
-  @action
-  setPageNum = async (pageNum) => {
-    this.pageNum = pageNum
   }
 
   @action

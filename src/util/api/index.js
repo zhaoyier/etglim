@@ -79,27 +79,6 @@ export function getPlans(name, pageNum, pageSize) {
   });
 }
 
-export function getVarietyList(name, startDate, endDate) {
-  return ajax({
-    url: '/api/v1/variety/list',
-    method: 'post',
-    data: {
-      name,
-      startDate,
-      endDate
-    }
-  });
-}
-
-export function getContract() {
-  return ajax({
-    url: '/api/get/contract',
-    method: 'post',
-    data: {
-    }
-  });
-}
-
 export function getSummary() {
   return ajax({
     url: '/api/v1/summary',
