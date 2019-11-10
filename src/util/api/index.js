@@ -129,3 +129,35 @@ export function getReportData(id, dateBegin, dateEnd) {
     }
   });
 }
+
+export function getFocusList(params) {
+  return ajax({
+    url: '/api/focus/list',
+    method: 'post',
+    data: params
+  });
+}
+
+export function createFocusEvent(params) {
+  return ajax({
+    url: '/api/focus/create',
+    method: 'post',
+    data: params
+  });
+}
+
+export function updateFocusEvent(params) {
+  return ajax({
+    url: '/api/focus/update',
+    method: 'post',
+    data: params
+  });
+}
+
+export function cancelFocusEvent(params) {
+  return ajax({
+    url: '/api/focus/cancel',
+    method: 'post',
+    data: params
+  });
+}

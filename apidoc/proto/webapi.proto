@@ -1,0 +1,173 @@
+syntax="proto3";
+
+package evsill;
+
+// service WebApi {
+//   // rpc GetVarietyDaily(GetVarietyDailyReq) returns (GetVarietyDailyReq);
+//   // rpc GetContract(GetContractReq) returns (GetContractResp);
+//   //记录事故
+//   // rpc CreateFocus(CreateFocusReq) returns (CreateFocusResp);
+//   // rpc UpdateFocus(UpdateFocusReq) returns (UpdateFocusResp);
+//   // rpc CancelFocus(CancelFocusReq) returns (CancelFocusResp);
+//   // rpc GetFocusList(GetFocusListReq) returns (GetFocusListResp);
+//   // rpc CreateDiary(CreateDiaryReq) returns (CreateDiaryResp);
+// }
+
+message GetVarietyDailyReq {
+  string name = 1;
+  string startDate = 2;
+  string endDate = 3;
+  int32 pageSize = 4;
+  int32 pageNum = 5;
+}
+
+message GetVarietyDailyResp {
+  int32 code = 1;
+  repeated DataDaily data = 2;
+}
+
+message DataDaily {
+  string variety = 1; //品种月份
+  int32 lastSettlement = 2; //昨结算
+  int32 opening =3; //今开盘
+  int32 highest = 4;//最高价
+  int32 lowest  = 5;  //最低价
+  int32 closed = 6; //今收盘
+  int32 todaySettlement = 7; //今结算
+  int32 changeOne = 8; //涨跌1 今天收盘价-上日结算价
+  int32 changeTwo = 9; //涨跌2 今天结算价-上日结算价
+  int32 volume = 10;//成交量
+  int32 emptyVolume = 11;//空盘量
+  int32 changes   = 12; //增减量
+  int64 turnover = 13;  //成交额
+  int32 settlementPrice = 14; //交割结算价
+  string date = 15;  //日期 
+}
+
+message GetContractReq{
+
+}
+
+message GetContractResp {
+  int32 code = 1;
+  // map<string, repeated string> contractMap = 2;
+  repeated VarietyContract contractes = 3;
+}
+
+message VarietyContract {
+  string variety = 1; //品种月份
+  repeated string date = 2; //合约
+}
+
+message CreateFocusReq {
+  string contract = 1;  //合约
+  ContractType contractType = 2;  //合约类型
+  EventLevelType eventType = 3; //事故严重等级
+  EventStageType stageType = 4; //发展阶段
+  int64 accidentStart = 6;  //事故开始时间
+  int64 accidentEnd = 7;  //事故开始时间
+  int32 highest = 9;//最高价
+  int32 lowest  = 10;  //最低价
+  string remarks = 11; //备注信息
+  int32 predict = 12; //预计
+  //热点事件属性-季节、灾害、其他
+  FocusState state = 13;//
+}
+
+//关注状态
+enum FocusState {
+  FocusStateUnknown = 0;
+  FocusStateStart = 1;
+  FocusStateContinue = 2;
+  FocusStateClosed = 3;
+}
+
+message FocusDetail {
+  int32 opening =1; //今开盘
+  int32 highest = 2;//最高价
+  int32 lowest  = 3;  //最低价
+  int64 createDate = 4; //创建日期
+  string remarks = 5; //备注信息
+}
+
+//合约类型 
+enum ContractType {
+  ContractTypeUnknown = 0;
+  ContractTypeAgriculture = 1;  //农业
+  ContractTypeIndustrial = 2;//工业
+  ContractTypeFinance = 3;  //金融
+  ContractTypeOther = 4;  //其他
+}
+enum EventLevelType {
+  EventLevelTypeUnknown = 0;
+  EventLevelTypeExtra = 7;  //特大事故-7级
+  EventLevelTypeMajor = 6;  //重大事故-6级
+  EventLevelTypeBiggish = 5;  //较大的事故-5级
+  EventLevelTypeLimited = 4;  //有限的事故-4级
+  EventLevelTypeSignificant = 3;  //重大事件-3级
+  EventLevelTypeGeneral = 2;  //一般事件-2级
+  EventLevelTypeAbnormal = 1;  //异常-1级
+}
+//发展阶段
+enum EventStageType {
+  EventStageTypeUnknown = 0;
+  EventStageTypeEarly = 1;  //初期
+  EventStageTypeDevelopment = 2;  //发展期
+  EventStageTypeMaximum = 3;  //最盛期
+  EventStageTypeReduced = 4;  //减弱期
+  EventStageTypePhaseOut = 5; //熄灭期
+}
+
+message CreateFocusResp{
+  int32 code = 1;
+  string message = 2;
+}
+
+message UpdateFocusReq{
+  string id = 1;
+  FocusDetail detail = 2;
+}
+
+message UpdateFocusResp{
+  int32 code = 1;
+  string message = 2;
+}
+message CancelFocusReq {
+  string id = 1;
+  FocusState state = 2;//
+}
+
+message CancelFocusResp {
+  int32 code = 1;
+  string message = 2;
+}
+
+message GetFocusListReq {
+  string contract = 1;
+  FocusState state = 2;//
+  int32 limit = 3;
+  int32 offset = 4;
+}
+message GetFocusListResp {
+  int32 code = 1;
+  string message = 2;
+  repeated FocusContract focuses = 3;
+}
+
+message FocusContract {
+  string id = 1;
+  string contract = 2;  //合约
+  ContractType contractType = 3;  //合约类型
+  EventLevelType eventType = 4; //事故严重等级
+  EventStageType stageType = 5; //发展阶段
+  int64 accidentStart = 6;  //事故开始时间
+  int64 accidentEnd = 7;  //事故开始时间
+  int32 highest = 8;//最高价
+  int32 lowest  = 9;  //最低价
+  string remarks = 11; //备注信息
+  int32 predict = 12; //预计
+  FocusState state = 13;//
+  repeated FocusDetail details = 14;
+  int64 createDate = 15;
+  int64 updateDate = 16;
+}

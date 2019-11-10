@@ -5,6 +5,7 @@ import SearchDailyStore from './SearchDailyStore';
 import LoginStore from './LoginStore';
 import HomeStore from './HomeStore';
 import ReportStore from './ReportStore';
+import FucusStore from './FucusStore';
 
 export default {
   basicFormStore: new BasicFormStore(),
@@ -13,6 +14,6 @@ export default {
   loginStore: new LoginStore(),
   homeStore: new HomeStore(),
   reportStore: new ReportStore(),
-  getDailyStore: new SearchDailyStore()
-
+  getDailyStore: new SearchDailyStore(),
+  getFucusStore: new FucusStore()
 };

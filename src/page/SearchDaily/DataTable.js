@@ -86,7 +86,7 @@ class DataTable extends React.Component {
   render() {
     const { data } = this.props;
 
-    return <Table columns={this.createColumns()} bordered dataSource={data} scroll={{ y: 480 }} rowKey="id" />;
+    return <Table columns={this.createColumns()} bordered dataSource={data} scroll={{ x: 1500, y: 300 }} rowKey="id" />;
   }
 }
 

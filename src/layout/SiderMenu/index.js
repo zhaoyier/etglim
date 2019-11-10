@@ -41,6 +41,7 @@ class SiderMenu extends Component {
         <SubMenu key="list" title={<span><Icon type="mail" /><span>列表页</span></span>}>
           {/* <Menu.Item key="/project/list/search"><Link to="/project/list/search">查询列表</Link></Menu.Item> */}
           <Menu.Item key="/project/list/variety"><Link to="/project/list/variety">品种查询</Link></Menu.Item>
+          <Menu.Item key="/project/list/focus"><Link to="/project/list/focus">关注事件</Link></Menu.Item>
         </SubMenu>
         <SubMenu key="result" title={<span><Icon type="table" /><span>结果页</span></span>}>
           <Menu.Item key="/project/result/success">

@@ -86,6 +86,14 @@ export default class HomeStore {
         title: '',
         gridLineDashStyle: 'Dot'
       },
+      plotOptions: {
+        line: {
+          dataLabels: {
+            enabled: true
+          },
+          enableMouseTracking: true
+        }
+      },
       credits: false,
       series
     };

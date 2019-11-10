@@ -64,6 +64,11 @@ const Root = () => (
                         path="/project/list/variety"
                         component={getComponentAsync(import(/* webpackChunkName: "SearchDaily" */ 'page/SearchDaily'))}
                       />
+                      <Route
+                        exact
+                        path="/project/list/focus"
+                        component={getComponentAsync(import(/* webpackChunkName: "SearchDaily" */ 'page/SearchFocus'))}
+                      />
 
                       <Route
                         exact

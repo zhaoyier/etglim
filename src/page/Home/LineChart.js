@@ -12,6 +12,7 @@ const { TabPane } = Tabs;
 @cssModules(styles)
 class LineChart extends Component {
   handleTabChange = (key) => {
+    console.log('===>>009:', key);
     const { onIndicatorChange } = this.props;
     typeof onIndicatorChange === 'function' && onIndicatorChange(key);
   };
@@ -52,7 +53,7 @@ class LineChart extends Component {
           {indicators.map(item => (
             <TabPane
               tab={
-                <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
+                <Row gutter={4} style={{ width: 80, margin: '2px 0' }}>
                   <NumberInfo subTitle={item.name} total={item.value} />
                 </Row>
               }

@@ -27,6 +27,9 @@ axios.interceptors.request.use((config) => {
     if (noNeedAuthAPI.indexOf(config.url) > -1) {
       return config;
     }
+    if (process.env.API === 'pro') {
+      config.baseURL = 'TODO';
+    }
 
     const userInfo = loginUtil.getUserInfo();
     if (userInfo && userInfo.token) {
