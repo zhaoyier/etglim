@@ -26,24 +26,7 @@ module.exports = env => {
     devServer.proxy = {
       '/api': 'http://localhost:8081' // 预发地址
     };
-  } /* else {
-    devServer.proxy = {
-      '/api': {
-        target: 'http://rap2api.taobao.org',
-        pathRewrite: {
-          '^/api' : '/app/mock/84445/api'
-        }
-        // changeOrigin: true,
-        // onProxyRes: function(proxyReq, req, res) {
-        //   console.log('--------------------------------');
-        //   console.log(proxyReq);
-        //   console.log(req);
-        //   // console.log(res);
-        //   console.log('--------------------------------');
-        // }
-      }
-    };
-  } */
+  }
 
   return merge(common, {
     entry: {
@@ -124,10 +107,6 @@ module.exports = env => {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      // new OpenBrowserPlugin({
-      //   url: 'http://localhost:8080',
-      //   browser: "Google Chrome",
-      // }),
       new webpack.DefinePlugin({  // 为项目注入环境变量
         'process.env.API': JSON.stringify(API)
       }),
