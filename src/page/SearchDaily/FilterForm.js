@@ -43,17 +43,17 @@ class FilterForm extends React.Component {
         <FormItem label="合约">
           {getFieldDecorator('contract', {
             rules: [
-              { type: 'array', required: true, message: 'Please select your habitual residence!' }
+              { type: 'array', required: true, message: 'input contract!' }
             ]
-          })(<Cascader options={data} />)}
+          })(<Cascader style={{ width: 120 }} options={data} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('date', {
             rules: [
-              { required: false, message: 'Please select date!' }
+              { required: false, message: 'select date!' }
             ]
           })(
-            <RangePicker />
+            <RangePicker style={{ width: 240 }} />
           )}
         </FormItem>
         <FormItem>
