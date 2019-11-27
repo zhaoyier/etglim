@@ -44,66 +44,10 @@ const Root = () => (
 
                       <Route
                         exact
-                        path="/project/form/basic/:id?"
-                        component={getComponentAsync(import(/* webpackChunkName: "StepForm" */ 'page/BasicForm'))}
-                      />
-
-                      <Route
-                        exact
-                        path="/project/form/step/:id?"
-                        component={getComponentAsync(import(/* webpackChunkName: "StepForm" */ 'page/StepForm'))}
-                      />
-
-                      <Route
-                        exact
                         path="/project/list/search"
                         component={getComponentAsync(import(/* webpackChunkName: "SearchList" */ 'page/SearchList'))}
                       />
-
-                      <Route
-                        exact
-                        path="/project/datareport/:id"
-                        component={getComponentAsync(import(/* webpackChunkName: "DataReport" */ 'page/DataReport'))}
-                      />
-
-                      <Route
-                        exact
-                        path="/project/form/step/datareport/:id"
-                        component={getComponentAsync(import(/* webpackChunkName: "DataReport" */ 'page/DataReport'))}
-                      />
-
-                      <Route
-                        exact
-                        path="/project/result/success"
-                        component={getComponentAsync(import(/* webpackChunkName: "SuccessResult" */ 'page/Result/Success'))}
-                      />
-                      <Route
-                        exact
-                        path="/project/result/error"
-                        component={getComponentAsync(import(/* webpackChunkName: "ErrorResult" */ 'page/Result/Error'))}
-                      />
-
-                      <Route
-                        exact
-                        path="/project/exception/403"
-                        component={getComponentAsync(import(/* webpackChunkName: "E403" */ 'page/403'))}
-                      />
-                      <Route
-                        exact
-                        path="/project/exception/404"
-                        component={getComponentAsync(import(/* webpackChunkName: "E404" */ 'page/404'))}
-                      />
-                      <Route
-                        exact
-                        path="/project/exception/500"
-                        component={getComponentAsync(import(/* webpackChunkName: "E500" */ 'page/500'))}
-                      />
-
                       <Redirect exact from="/" to="/project" />
-
-                      <Route
-                        component={getComponentAsync(import(/* webpackChunkName: "E404" */ 'page/404'))}
-                      />
                     </Switch>
                   </App>
                 )
