@@ -1,7 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-/**
- * 此文件不会用到，只是为了防止报错
- */
-ReactDOM.render(<div/>, document.getElementById('root'));
+export class App
+{
+    constructor()
+    {
+        console.log("Hello app!");
+    }
+}
