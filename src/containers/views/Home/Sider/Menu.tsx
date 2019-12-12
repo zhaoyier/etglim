@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { computed } from 'mobx'
 import { Menu, Icon } from 'antd'
 import { pathToRegexp } from 'path-to-regexp'
+import { Link } from 'react-router-dom'
 
 import styles from './index.scss'
 import { RootConsumer } from '@shared/App/Provider'
@@ -156,7 +157,34 @@ class SiderMenu extends React.Component<IProps> {
                 onClick={this.goto}
                 {...this.menuProps}
             >
-                {menuItems}
+                <Menu.Item key="">
+                    <Link to={'/'}>
+                        <Icon type="coffee" />
+                        <span>首页</span>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="/users">
+                    <Link to={'/users'}>
+                        <Icon type="coffee" />
+                        <span>用户</span>
+                    </Link>
+                </Menu.Item>
+                <SubMenu
+                    key="/data"
+                    title={
+                        <span>
+                            <Icon type="calendar" />
+                            <span className="nav-text">报表</span>
+                        </span>
+                    }
+                >
+                    <Menu.Item key="/data/daily">
+                        <Link to={'/data/daily'}>
+                            <Icon type="fire" />
+                            每日数据
+                        </Link>
+                    </Menu.Item>
+                </SubMenu>
             </Menu>
         )
     }

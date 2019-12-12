@@ -7,7 +7,8 @@ const loadComponent = (loader: () => Promise<any>) => Loadable(loader, { fallbac
 
 export const asynchronousComponents = {
     SocketDebugger: loadComponent(() => import(/* webpackChunkName: "socket-debugger" */ '@views/SocketDebugger')),
-    Users: loadComponent(() => import(/* webpackChunkName: "users" */ '@views/Users'))
+    Users: loadComponent(() => import('@views/Users')),
+    Daily: loadComponent(() => import('@views/Data/Daily'))
 }
 
 // all routers key
@@ -42,6 +43,14 @@ export const menu: IMenu[] = [
         title: 'Users',
         icon: 'user',
         component: 'Users',
+        exact: true
+    },
+    {
+        id: 4,
+        path: '/data/daily',
+        title: '每日报表',
+        icon: 'fire',
+        component: 'Daily',
         exact: true
     }
 ]
