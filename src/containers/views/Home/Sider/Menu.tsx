@@ -99,40 +99,9 @@ class SiderMenu extends React.Component<IProps> {
         return map[key] || []
     }
 
-    // 递归生成菜单
-    getMenus = (menuTree: IMenuInTree[]) => {
-        return menuTree.map(item => {
-            if (item.children) {
-                if (item.pid) {
-                    this.levelMap[item.id] = item.pid
-                }
-                return (
-                    <SubMenu
-                        key={String(item.id)}
-                        title={
-                            <span>
-                                {item.icon && <Icon type={item.icon} />}
-                                <span>{item.title}</span>
-                            </span>
-                        }
-                    >
-                        {this.getMenus(item.children)}
-                    </SubMenu>
-                )
-            }
-            return (
-                <Menu.Item key={String(item.id)}>
-                    {item.icon && <Icon type={item.icon} />}
-                    <span>{item.title}</span>
-                </Menu.Item>
-            )
-        })
-    }
-
     render() {
         this.levelMap = {}
         const { sideBarTheme } = this.props
-        const menuItems = this.getMenus(this.menuTree)
         // 寻找选中路由
         let currentMenu: IMenu = null
         for (const item of menu) {
@@ -170,7 +139,7 @@ class SiderMenu extends React.Component<IProps> {
                     </Link>
                 </Menu.Item>
                 <SubMenu
-                    key="/data"
+                    key="/report"
                     title={
                         <span>
                             <Icon type="calendar" />
@@ -178,8 +147,8 @@ class SiderMenu extends React.Component<IProps> {
                         </span>
                     }
                 >
-                    <Menu.Item key="/data/daily">
-                        <Link to={'/data/daily'}>
+                    <Menu.Item key="/report/daily">
+                        <Link to={'/report/daily'}>
                             <Icon type="fire" />
                             每日数据
                         </Link>

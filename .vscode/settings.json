@@ -8,5 +8,8 @@
     "eslint.autoFixOnSave": true,
     "typescript.tsdk": "node_modules/typescript/lib",
     "scss.lint.validProperties": ["composes"],
-    "jest.autoEnable": false
+    "jest.autoEnable": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }
