@@ -32,7 +32,7 @@ const methods: Method[] = ['get', 'post', 'put', 'delete']
 
 let authTimer: NodeJS.Timer = null
 
-const isSuccess = res => res.errCode === 0
+const isSuccess = res => res.result.errCode === 0
 const resFormat = res => res.response || res.data || {}
 
 methods.forEach(v => {
@@ -57,10 +57,11 @@ methods.forEach(v => {
             response => {
                 const rdata =
                     typeof response.data === 'object' && !isNaN(response.data.length) ? response.data[0] : response.data
+                console.log('===>>021:', typeof response.data === 'object', !isNaN(response.data.length), response.data)
                 if (!isSuccess(rdata)) {
                     return Promise.reject({
-                        msg: rdata.msg,
-                        errCode: rdata.errCode,
+                        msg: rdata.result.msg,
+                        errCode: rdata.result.errCode,
                         type: HTTPERROR[HTTPERROR.LOGICERROR],
                         config: response.config
                     })
@@ -91,7 +92,7 @@ methods.forEach(v => {
         } else if (data instanceof FormData) {
             axiosConfig.data = data
         } else {
-            axiosConfig.data = qs.stringify(data)
+            axiosConfig.data = data
         }
         axiosConfig.startTime = new Date()
         return instance
