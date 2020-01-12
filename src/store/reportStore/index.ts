@@ -39,12 +39,6 @@ export class ReportStore extends StoreExt {
     @observable total = 0
     @observable varietyList: IReportStore.IVariety[] = []
     @observable contractList: IReportStore.IContract[] = []
-    @observable currentVariety = ''
-    @observable currentContract = ''
-
-    // constructor() {
-    //     getVarietyList()
-    // }
 
     @action
     getDaily = async (contract: string) => {
@@ -58,7 +52,7 @@ export class ReportStore extends StoreExt {
             runInAction('SET_DAILY_MARKET', () => {
                 this.marketes = res.markets
                 this.total = res.total
-                console.log('====>>024:', this.marketes, this.total)
+                // console.log('====>>024:', this.marketes, this.total)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {
@@ -72,16 +66,12 @@ export class ReportStore extends StoreExt {
             const res = await this.api.report.getVarietyList({})
             runInAction('SET_DAILY_MARKET', () => {
                 this.varietyList = res
-                console.log('====>>022:', toJS(this.varietyList), res)
+                // console.log('====>>022:', toJS(this.varietyList), res)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {
             this.getDailyloading = false
         })
-    }
-    @action
-    changeVariety = (variety: string) => {
-        this.currentVariety = variety
     }
     @action
     getContract = async (variety: string) => {
@@ -90,7 +80,7 @@ export class ReportStore extends StoreExt {
             const res = await this.api.report.getContractList({ variety: variety })
             runInAction('SET_DAILY_MARKET', () => {
                 this.contractList = res
-                console.log('====>>025:', toJS(this.contractList), res)
+                // console.log('====>>025:', toJS(this.contractList), res)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {

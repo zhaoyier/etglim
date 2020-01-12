@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table, Divider, Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
+import moment from 'moment'
 import reportRootStore from '@store/reportStore/rootStore'
 import { useOnMount } from '@utils/hooks'
 
@@ -11,57 +12,28 @@ interface IProps {
 function DailyTable({ scrollY }: IProps) {
     const { reportStore } = reportRootStore()
 
-    // useOnMount(reportStore.getDaily)
-    console.log('==>>0323:', reportStore.marketes)
+    const columns = [
+        { title: 'Variety', dataIndex: 'variety', key: 'variety', fixed: 'left' },
+        { title: 'Date', dataIndex: 'date', key: 'date', fixed: 'left' },
+        { title: 'opening', dataIndex: 'opening', key: 'opening' },
+        { title: 'highest', dataIndex: 'highest', key: 'highest' },
+        { title: 'lowest', dataIndex: 'lowest', key: 'lowest' },
+        { title: 'closed', dataIndex: 'closed', key: 'closed' },
+        { title: 'todaySettlement', dataIndex: 'todaySettlement', key: 'todaySettlement' },
+        { title: 'volume', dataIndex: 'volume', key: 'volume' },
+        { title: 'emptyVolume', dataIndex: 'emptyVolume', key: 'emptyVolume' },
+        { title: 'changes', dataIndex: 'changes', key: 'changes' },
+        { title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => {} }
+    ]
 
     return (
         <React.Fragment>
-            <Table<IUserStore.IUser>
-                className="center-table"
-                style={{ width: '100%' }}
-                bordered
-                rowKey="_id"
-                loading={reportStore.getDailyloading}
+            <Table
+                columns={columns}
                 dataSource={reportStore.marketes}
-                scroll={{ y: scrollY }}
-                pagination={{
-                    current: reportStore.pageIndex,
-                    showSizeChanger: true,
-                    pageSize: reportStore.pageSize,
-                    pageSizeOptions: ['30', '20', '10'],
-                    total: reportStore.total
-                }}
-            >
-                <Table.Column<IReportStore.IDaily>
-                    key="variety"
-                    title="Variety"
-                    dataIndex="variety"
-                    width={200}
-                    fixed="left"
-                />
-                <Table.Column<IReportStore.IDaily>
-                    key="lastSettlement"
-                    title="LastSettlement"
-                    dataIndex="lastSettlement"
-                    width={200}
-                />
-                <Table.Column<IReportStore.IDaily> key="opening" title="Opening" dataIndex="opening" width={200} />
-                <Table.Column<IReportStore.IDaily> key="highest" title="Highest" dataIndex="highest" width={200} />
-                <Table.Column<IReportStore.IDaily> key="lowest" title="Lowest" dataIndex="lowest" width={200} />
-                <Table.Column<IReportStore.IDaily> key="closed" title="Closed" dataIndex="closed" width={200} />
-                <Table.Column<IReportStore.IDaily>
-                    key="todaySettlement"
-                    title="TodaySettlement"
-                    dataIndex="todaySettlement"
-                    width={200}
-                />
-                <Table.Column<IReportStore.IDaily>
-                    key="changeOne"
-                    title="ChangeOne"
-                    dataIndex="changeOne"
-                    width={200}
-                />
-            </Table>
+                scroll={{ x: 1300, y: 380 }}
+                pagination={{ pageSize: 100 }}
+            />
         </React.Fragment>
     )
 }

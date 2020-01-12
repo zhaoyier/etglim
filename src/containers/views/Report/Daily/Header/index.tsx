@@ -32,7 +32,7 @@ function SearchForm({ form }: IProps) {
         }
         form.validateFields(
             async (err, values): Promise<any> => {
-                console.log('==>>submit:', values)
+                // console.log('==>>submit:', values)
                 if (!err) {
                     toggleLoading()
                     try {
@@ -44,18 +44,13 @@ function SearchForm({ form }: IProps) {
         )
     }
     function handleChangeVariety(value) {
-        console.log(value)
-        // reportStore.changeVariety(value)
         reportStore.getContract(value)
-        // 查询合约
     }
     function handleChangeContract(value) {
-        console.log(value)
-        // reportStore.changeContract(value)
+        reportStore.getDaily(value)
     }
 
-    function handleSelectVariety(value) {
-        console.log('on select:', reportStore.varietyOptions)
+    function handleSelectVariety() {
         reportStore.varietyOptions.map((item, index) =>
             varietyOptions.push(
                 <Option key={index} value={item.variety}>
@@ -67,7 +62,6 @@ function SearchForm({ form }: IProps) {
     }
 
     function handleSelectContract() {
-        console.log('on select contract:', reportStore.contractOptions)
         reportStore.contractOptions.map((item, index) =>
             contractOptions.push(
                 <Option key={index} value={item.contract}>
@@ -79,7 +73,6 @@ function SearchForm({ form }: IProps) {
     }
 
     const { getFieldDecorator, getFieldsError } = form
-    // console.log('===>>031:', toJS(reportStore.varietyList))
     return (
         <Form layout="inline" onSubmit={handleSubmit}>
             <Form.Item>
@@ -110,11 +103,11 @@ function SearchForm({ form }: IProps) {
                     </Select>
                 )}
             </Form.Item>
-            <Form.Item>
+            {/* <Form.Item>
                 <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
                     Search
                 </Button>
-            </Form.Item>
+            </Form.Item> */}
         </Form>
     )
 }

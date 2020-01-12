@@ -57,7 +57,6 @@ methods.forEach(v => {
             response => {
                 const rdata =
                     typeof response.data === 'object' && !isNaN(response.data.length) ? response.data[0] : response.data
-                console.log('===>>021:', typeof response.data === 'object', !isNaN(response.data.length), response.data)
                 if (!isSuccess(rdata)) {
                     return Promise.reject({
                         msg: rdata.result.msg,
