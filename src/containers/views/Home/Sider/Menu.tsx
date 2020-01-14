@@ -153,6 +153,12 @@ class SiderMenu extends React.Component<IProps> {
                             每日数据
                         </Link>
                     </Menu.Item>
+                    <Menu.Item key="/report/daily">
+                        <Link to={'/report/daily'}>
+                            <Icon type="fire" />
+                            数据折现
+                        </Link>
+                    </Menu.Item>
                 </SubMenu>
             </Menu>
         )
