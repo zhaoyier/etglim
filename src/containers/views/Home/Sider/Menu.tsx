@@ -153,8 +153,42 @@ class SiderMenu extends React.Component<IProps> {
                             每日数据
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/report/daily">
-                        <Link to={'/report/daily'}>
+                    <Menu.Item key="/report/line">
+                        <Link to={'/report/line'}>
+                            <Icon type="fire" />
+                            数据折现
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="/report/main">
+                        <Link to={'/report/main'}>
+                            <Icon type="fire" />
+                            主力合约
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="/report/billboard">
+                        <Link to={'/report/billboard'}>
+                            <Icon type="fire" />
+                            趋势图
+                        </Link>
+                    </Menu.Item>
+                </SubMenu>
+                <SubMenu
+                    key="/accident"
+                    title={
+                        <span>
+                            <Icon type="calendar" />
+                            <span className="nav-text">事故</span>
+                        </span>
+                    }
+                >
+                    <Menu.Item key="/accident/daily">
+                        <Link to={'/accident/daily'}>
+                            <Icon type="fire" />
+                            每日数据
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="/accident/line">
+                        <Link to={'/accident/line'}>
                             <Icon type="fire" />
                             数据折现
                         </Link>

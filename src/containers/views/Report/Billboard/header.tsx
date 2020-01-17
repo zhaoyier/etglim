@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 // import 'antd/dist/antd.css'
 import styles from './index.scss'
 import { toJS } from 'mobx'
-import { Form, Select, Icon, Input, Button } from 'antd'
+import moment from 'moment'
+import { Form, Select, Icon, Input, Button, DatePicker } from 'antd'
 import { FormComponentProps } from 'antd/lib/form'
 import reportRootStore from '@store/reportStore/rootStore'
 import { useOnMount } from '@utils/hooks'
@@ -12,12 +13,14 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 const { Option } = Select
+const { RangePicker } = DatePicker
 // interface CreateProps {}
 interface IProps extends FormComponentProps {}
 
 function SearchForm({ form }: IProps) {
     let varietyOptions = []
     let contractOptions = []
+    const dateFormat = 'YYYY/MM/DD'
     const { reportStore } = reportRootStore()
     // useOnMount(reportStore.getVarietyList)
 
@@ -31,12 +34,14 @@ function SearchForm({ form }: IProps) {
             e.preventDefault()
         }
         form.validateFields(
-            async (err, values): Promise<any> => {
-                // console.log('==>>submit:', values)
+            async (err, val): Promise<any> => {
+                const start = moment(val.rangeDate[0]).unix()
+                const end = moment(val.rangeDate[1]).unix()
+                console.log('==>>submit:', val, start, end)
                 if (!err) {
                     // toggleLoading()
                     try {
-                        reportStore.getDaily(values.contract)
+                        reportStore.getBillboard(val.contract, start, end)
                     } catch (err) {}
                     // toggleLoading()
                 }
@@ -46,9 +51,9 @@ function SearchForm({ form }: IProps) {
     function handleChangeVariety(value) {
         reportStore.getContract(reportStore.currentExchange, value)
     }
-    function handleChangeContract(value) {
-        reportStore.getDaily(value)
-    }
+    // function handleChangeContract(value) {
+    //     reportStore.getDaily(value)
+    // }
     function handleChangeExchange(value) {
         //查询品种
         reportStore.changeExchange(value)
@@ -119,92 +124,31 @@ function SearchForm({ form }: IProps) {
                     </Select>
                 )}
             </Form.Item>
-            <Form.Item label="合约">
+            <Form.Item label="">
                 {getFieldDecorator('contract', {
                     rules: [{ required: true, message: 'Please select your contract!' }]
                 })(
                     <Select
                         style={{ width: 120 }}
                         placeholder="Select a option and change input text above"
-                        onChange={handleChangeContract}
                         onMouseEnter={handleSelectContract}
                     >
                         {contractOptions}
                     </Select>
                 )}
             </Form.Item>
+            <Form.Item>
+                {getFieldDecorator('rangeDate', {
+                    rules: [{ type: 'array', required: true, message: 'Please select time!' }]
+                })(<RangePicker format={dateFormat} />)}
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
+                    Search
+                </Button>
+            </Form.Item>
         </Form>
     )
 }
 
-// class HorizontalLoginForm extends React.Component {
-//     // componentDidMount() {
-//     //     // To disable submit button at the beginning.
-//     //     this.props.form.validateFields()
-//     // }
-
-//     handleSubmit = e => {
-//         e.preventDefault()
-//         this.props.form.validateFields((err, values) => {
-//             console.log('===>>param:', err, values)
-//             if (!err) {
-//                 console.log('Received values of form: ', values)
-//             }
-//         })
-//     }
-
-//     handleSelectVariety = value => {
-//         console.log(value)
-//     }
-
-//     handleSelectContract = value => {
-//         console.log(value)
-//     }
-
-//     render() {
-//         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
-
-//         return (
-//             <div className={styles.header}>
-//                 <Form layout="inline" onSubmit={this.handleSubmit}>
-//                     <Form.Item>
-//                         {getFieldDecorator('variety', {
-//                             rules: [{ required: true, message: 'Please select your variety!' }]
-//                         })(
-//                             <Select
-//                                 style={{ width: 120 }}
-//                                 placeholder="Select a option and change input text above"
-//                                 onChange={this.handleSelectVariety}
-//                             >
-//                                 <Option value="male">male</Option>
-//                                 <Option value="female">female</Option>
-//                             </Select>
-//                         )}
-//                     </Form.Item>
-//                     <Form.Item>
-//                         {getFieldDecorator('contract', {
-//                             rules: [{ required: true, message: 'Please select your contract!' }]
-//                         })(
-//                             <Select
-//                                 style={{ width: 120 }}
-//                                 placeholder="Select a option and change input text above"
-//                                 onChange={this.handleSelectVariety}
-//                             >
-//                                 <Option value="male">male</Option>
-//                                 <Option value="female">female</Option>
-//                             </Select>
-//                         )}
-//                     </Form.Item>
-//                     <Form.Item>
-//                         <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
-//                             Log in
-//                         </Button>
-//                     </Form.Item>
-//                 </Form>
-//             </div>
-//         )
-//     }
-// }
-
-// const WrappedHorizontalLoginForm = Form.create({ name: 'horizontal_login' })(HorizontalLoginForm)
 export default Form.create<IProps>()(SearchForm)

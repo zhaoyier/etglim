@@ -8,7 +8,10 @@ const loadComponent = (loader: () => Promise<any>) => Loadable(loader, { fallbac
 export const asynchronousComponents = {
     SocketDebugger: loadComponent(() => import(/* webpackChunkName: "socket-debugger" */ '@views/SocketDebugger')),
     Users: loadComponent(() => import('@views/Users')),
-    Daily: loadComponent(() => import('@views/Report/Daily'))
+    Daily: loadComponent(() => import('@views/Report/Daily')),
+    Line: loadComponent(() => import('@views/Report/Line')),
+    Main: loadComponent(() => import('@views/Report/Main')),
+    Billboard: loadComponent(() => import('@views/Report/Billboard'))
 }
 
 // all routers key
@@ -51,6 +54,30 @@ export const menu: IMenu[] = [
         title: '每日报表',
         icon: 'fire',
         component: 'Daily',
+        exact: true
+    },
+    {
+        id: 5,
+        path: '/report/line',
+        title: '每日折线',
+        icon: 'fire',
+        component: 'Line',
+        exact: true
+    },
+    {
+        id: 6,
+        path: '/report/billboard',
+        title: '龙虎榜',
+        icon: 'fire',
+        component: 'Billboard',
+        exact: true
+    },
+    {
+        id: 7,
+        path: '/report/main',
+        title: '主力很月',
+        icon: 'fire',
+        component: 'Main',
         exact: true
     }
 ]

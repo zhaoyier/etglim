@@ -9,5 +9,11 @@ export default {
     },
     getContractList(data: object): Promise<any> {
         return http.post('contract/list', data || {})
+    },
+    setMainContract(data: object): Promise<any> {
+        return http.post('contract/setMain', data || {})
+    },
+    getBillboardList(data: object): Promise<any> {
+        return http.post('report/billboard', data || {})
     }
 }

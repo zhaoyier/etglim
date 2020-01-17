@@ -21,4 +21,5 @@ export interface IContract {
     variety: string
     varietyCN: string
     contract: string
+    isMain: boolean
 }

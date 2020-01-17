@@ -37,6 +37,11 @@ export class ReportStore extends StoreExt {
      * @memberof UserStore
      */
     @observable total = 0
+    @observable contractTotal = 0
+    @observable currentExchange = ''
+    @observable currentVariety = ''
+    @observable billboardList = []
+    @observable billboardPrice = []
     @observable varietyList: IReportStore.IVariety[] = []
     @observable contractList: IReportStore.IContract[] = []
 
@@ -52,7 +57,6 @@ export class ReportStore extends StoreExt {
             runInAction('SET_DAILY_MARKET', () => {
                 this.marketes = res.markets
                 this.total = res.total
-                // console.log('====>>024:', this.marketes, this.total)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {
@@ -60,13 +64,30 @@ export class ReportStore extends StoreExt {
         })
     }
     @action
-    getVarietyList = async () => {
+    getBillboard = async (contract: string, start: number, end: number) => {
         this.getDailyloading = true
         try {
-            const res = await this.api.report.getVarietyList({})
+            const res = await this.api.report.getBillboardList({
+                contract: contract,
+                billboardStart: start,
+                billboardEnd: end
+            })
+            runInAction('SET_DAILY_MARKET', () => {
+                this.billboardList = JSON.parse(res.position)
+                this.billboardPrice = JSON.parse(res.price)
+            })
+        } catch (err) {}
+        runInAction('HIDE_DAILY_MARKET_LOADING', () => {
+            this.getDailyloading = false
+        })
+    }
+    @action
+    getVarietyList = async (exchange: string) => {
+        this.getDailyloading = true
+        try {
+            const res = await this.api.report.getVarietyList({ exchange: exchange })
             runInAction('SET_DAILY_MARKET', () => {
                 this.varietyList = res
-                // console.log('====>>022:', toJS(this.varietyList), res)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {
@@ -74,13 +95,12 @@ export class ReportStore extends StoreExt {
         })
     }
     @action
-    getContract = async (variety: string) => {
+    getContract = async (exchange: string, variety: string) => {
         this.getDailyloading = true
         try {
-            const res = await this.api.report.getContractList({ variety: variety })
+            const res = await this.api.report.getContractList({ exchange: exchange, variety: variety })
             runInAction('SET_DAILY_MARKET', () => {
                 this.contractList = res
-                // console.log('====>>025:', toJS(this.contractList), res)
             })
         } catch (err) {}
         runInAction('HIDE_DAILY_MARKET_LOADING', () => {
@@ -88,11 +108,65 @@ export class ReportStore extends StoreExt {
         })
     }
 
+    @action
+    getMainContract = async (exchange: string, variety: string, isMain: boolean) => {
+        this.getDailyloading = true
+        try {
+            // console.log('===>>01:', exchange, isMain)
+            const res = await this.api.report.getContractList({
+                variety: variety,
+                exchange: exchange,
+                isMain: isMain
+            })
+            runInAction('SET_DAILY_MARKET', () => {
+                this.contractList = res
+                this.contractTotal = res ? res.length : 0
+                // console.log('===>>02:', res, this.contractTotal)
+            })
+        } catch (err) {}
+        runInAction('HIDE_DAILY_MARKET_LOADING', () => {
+            this.getDailyloading = false
+        })
+    }
+
+    @action
+    setMainContract = async (contract: string, isMain: boolean) => {
+        try {
+            console.log('===>>01:', contract, isMain)
+            await this.api.report.setMainContract({
+                contract: contract,
+                isMain: isMain
+            })
+            this.getMainContract(this.currentExchange, this.currentVariety, isMain)
+        } catch (err) {}
+        runInAction('HIDE_DAILY_MARKET_LOADING', () => {
+            this.getDailyloading = false
+        })
+    }
+    @action
+    changeExchange = (exchange: string) => {
+        console.log('===>>change exchange:', exchange)
+        this.currentExchange = exchange
+    }
+
+    @action
+    changeVariety = (variety: string) => {
+        console.log('===>>change exchange:', variety)
+        this.currentVariety = variety
+    }
+
     @computed get varietyOptions() {
         return this.varietyList.map(x => ({ variety: x.variety, varietyCN: x.varietyCN }))
     }
     @computed get contractOptions() {
         return this.contractList.map(x => ({ variety: x.variety, varietyCN: x.varietyCN, contract: x.contract }))
+    }
+    @computed get getBillboardData() {
+        return toJS(this.billboardList)
+    }
+    @computed get getBillboardPrice() {
+        console.log('====>>price:', toJS(this.billboardPrice))
+        return toJS(this.billboardPrice)
     }
 }
 export default new ReportStore()
