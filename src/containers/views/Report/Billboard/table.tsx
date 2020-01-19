@@ -32,45 +32,24 @@ function BillboardTable({ scrollY }: IProps) {
             range: [0, 1]
         }
     }
-
-    const data = [
-        {
-            year: '1991',
-            value: 3
+    const dv2 = new DataSet.View().source(reportStore.getBillboardPrice)
+    dv2.transform({
+        type: 'fold',
+        fields: ['highest', 'price', 'lowest'],
+        key: 'type',
+        value: 'value'
+    })
+    const scale2 = {
+        value: {
+            alias: 'The Share Price in Dollars',
+            formatter: function(val) {
+                return val
+            }
         },
-        {
-            year: '1992',
-            value: 4
-        },
-        {
-            year: '1993',
-            value: 3.5
-        },
-        {
-            year: '1994',
-            value: 5
-        },
-        {
-            year: '1995',
-            value: 4.9
-        },
-        {
-            year: '1996',
-            value: 6
-        },
-        {
-            year: '1997',
-            value: 7
-        },
-        {
-            year: '1998',
-            value: 9
-        },
-        {
-            year: '1999',
-            value: 13
+        date: {
+            range: [0, 1]
         }
-    ]
+    }
 
     const cols = {
         value: {
@@ -83,7 +62,7 @@ function BillboardTable({ scrollY }: IProps) {
 
     return (
         <div>
-            <Chart height={250} data={dv} padding={'auto'} scale={scale} forceFit>
+            <Chart height={220} data={dv} padding={'auto'} scale={scale} forceFit>
                 <Tooltip crosshairs />
                 <Axis />
                 <Legend />
@@ -91,7 +70,14 @@ function BillboardTable({ scrollY }: IProps) {
                 <Geom type="line" position="date*value" color="type" shape="smooth" size={2} />
             </Chart>
             <Divider></Divider>
-            <Chart height={250} data={reportStore.getBillboardPrice} scale={cols} forceFit>
+            <Chart height={220} data={dv2} padding={'auto'} scale={scale2} forceFit>
+                <Tooltip crosshairs />
+                <Axis />
+                <Legend />
+                <Geom type="area" position="date*value" color="type" shape="smooth" />
+                <Geom type="line" position="date*value" color="type" shape="smooth" size={2} />
+            </Chart>
+            {/* <Chart height={250} data={reportStore.getBillboardPrice} scale={cols} forceFit>
                 <Axis name="date" />
                 <Axis name="price" />
                 <Tooltip
@@ -110,7 +96,7 @@ function BillboardTable({ scrollY }: IProps) {
                         lineWidth: 1
                     }}
                 />
-            </Chart>
+            </Chart> */}
         </div>
     )
 }
