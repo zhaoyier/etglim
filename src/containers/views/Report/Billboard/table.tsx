@@ -51,14 +51,14 @@ function BillboardTable({ scrollY }: IProps) {
         }
     }
 
-    const cols = {
-        value: {
-            min: 0
-        },
-        year: {
-            range: [0, 1]
-        }
-    }
+    // const cols = {
+    //     value: {
+    //         min: 0
+    //     },
+    //     year: {
+    //         range: [0, 1]
+    //     }
+    // }
 
     return (
         <div>
