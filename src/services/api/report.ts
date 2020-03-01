@@ -15,5 +15,8 @@ export default {
     },
     getBillboardList(data: object): Promise<any> {
         return http.post('report/billboard', data || {})
+    },
+    getHintList(data: object): Promise<any> {
+        return http.post('report/hint', data || {})
     }
 }

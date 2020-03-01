@@ -9,6 +9,8 @@ export class ReportStore extends StoreExt {
      */
     @observable
     getDailyloading = false
+    @observable
+    getHintloading = false
     /**
      * table pageIndex
      *
@@ -37,6 +39,7 @@ export class ReportStore extends StoreExt {
      * @memberof UserStore
      */
     @observable total = 0
+    @observable hintTotal = 0
     @observable contractTotal = 0
     @observable currentExchange = ''
     @observable currentVariety = ''
@@ -44,6 +47,7 @@ export class ReportStore extends StoreExt {
     @observable billboardPrice = []
     @observable varietyList: IReportStore.IVariety[] = []
     @observable contractList: IReportStore.IContract[] = []
+    @observable hintList: IReportStore.IContract[] = []
 
     @action
     getDaily = async (contract: string) => {
@@ -109,6 +113,21 @@ export class ReportStore extends StoreExt {
     }
 
     @action
+    getHintList = async (date: number) => {
+        this.getHintloading = true
+        try {
+            const res = await this.api.report.getHintList({ date: date })
+            runInAction('SET_DAILY_MARKET', () => {
+                this.hintList = res.hints
+                this.hintTotal = res.total
+            })
+        } catch (err) {}
+        runInAction('HIDE_DAILY_MARKET_LOADING', () => {
+            this.getHintloading = false
+        })
+    }
+
+    @action
     getMainContract = async (exchange: string, variety: string, isMain: boolean) => {
         this.getDailyloading = true
         try {
@@ -145,13 +164,11 @@ export class ReportStore extends StoreExt {
     }
     @action
     changeExchange = (exchange: string) => {
-        console.log('===>>change exchange:', exchange)
         this.currentExchange = exchange
     }
 
     @action
     changeVariety = (variety: string) => {
-        console.log('===>>change exchange:', variety)
         this.currentVariety = variety
     }
 

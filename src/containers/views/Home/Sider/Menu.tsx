@@ -132,12 +132,28 @@ class SiderMenu extends React.Component<IProps> {
                         <span>首页</span>
                     </Link>
                 </Menu.Item>
-                <Menu.Item key="/users">
+                {/* <Menu.Item key="/users">
                     <Link to={'/users'}>
                         <Icon type="coffee" />
                         <span>用户</span>
                     </Link>
-                </Menu.Item>
+                </Menu.Item> */}
+                <SubMenu
+                    key="/users"
+                    title={
+                        <span>
+                            <Icon type="coffee" />
+                            <span className="nav-text">用户</span>
+                        </span>
+                    }
+                >
+                    <Menu.Item key="/users/position">
+                        <Link to={'/users/position'}>
+                            <Icon type="fire" />
+                            头寸列表
+                        </Link>
+                    </Menu.Item>
+                </SubMenu>
                 <SubMenu
                     key="/report"
                     title={
@@ -169,6 +185,12 @@ class SiderMenu extends React.Component<IProps> {
                         <Link to={'/report/billboard'}>
                             <Icon type="fire" />
                             趋势图
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="/report/hint">
+                        <Link to={'/report/hint'}>
+                            <Icon type="fire" />
+                            提示
                         </Link>
                     </Menu.Item>
                 </SubMenu>

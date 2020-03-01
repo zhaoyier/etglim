@@ -21,5 +21,6 @@ declare global {
         socketStore: ISocketStore.SocketStore
         routerStore: RouterStore
         reportStore: IReportStore.ReportStore
+        positionStore: IPositionStore.PositionStore
     }
 }
