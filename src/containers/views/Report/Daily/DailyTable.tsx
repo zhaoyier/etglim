@@ -15,6 +15,7 @@ function DailyTable({ scrollY }: IProps) {
     const columns = [
         { title: 'Variety', dataIndex: 'variety', key: 'variety', fixed: 'left' },
         { title: 'Date', dataIndex: 'date', key: 'date', fixed: 'left' },
+        { title: 'Weekday', dataIndex: 'date', key: 'date', fixed: 'left' },
         { title: 'opening', dataIndex: 'opening', key: 'opening' },
         { title: 'highest', dataIndex: 'highest', key: 'highest' },
         { title: 'lowest', dataIndex: 'lowest', key: 'lowest' },
