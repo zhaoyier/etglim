@@ -19,10 +19,10 @@ function DailyTable({ scrollY }: IProps) {
         { title: 'highest', dataIndex: 'highest', key: 'highest' },
         { title: 'lowest', dataIndex: 'lowest', key: 'lowest' },
         { title: 'closed', dataIndex: 'closed', key: 'closed' },
-        { title: 'todaySettlement', dataIndex: 'todaySettlement', key: 'todaySettlement' },
         { title: 'volume', dataIndex: 'volume', key: 'volume' },
         { title: 'emptyVolume', dataIndex: 'emptyVolume', key: 'emptyVolume' },
-        { title: 'changes', dataIndex: 'changes', key: 'changes' }
+        { title: 'changes', dataIndex: 'changes', key: 'changes' },
+        { title: 'todaySettlement', dataIndex: 'todaySettlement', key: 'todaySettlement' }
     ]
 
     return (
